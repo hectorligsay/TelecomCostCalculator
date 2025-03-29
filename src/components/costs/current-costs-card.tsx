@@ -1,10 +1,7 @@
 "use client"
 
 import { useState, type ChangeEvent } from "react"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
+import { Input, Label, Card, Textarea } from "@/components/ui"
 import type { CurrentState, CalculationsState } from "@/types/calculator"
 
 interface CurrentCostsCardProps {
@@ -27,10 +24,13 @@ export default function CurrentCostsCard({ current, calculations, handleCurrentC
   }
 
   return (
-    <Card className="p-2 bg-white rounded-lg border border-gray-200">
+    <Card className="p-2 bg-white rounded-lg border border-gray-200 transition-all duration-200 hover:shadow-md">
       <div className="space-y-1.5">
-        <div className="grid grid-cols-[120px_1fr] gap-2 items-start">
-          <h2 className="text-base font-semibold text-blue-600 pt-1">Current Costs</h2>
+        <div className="grid grid-cols-[80px_1fr] gap-4 items-start">
+          <h2 className="text-base font-semibold text-blue-600 pt-1 flex items-center">
+            <span role="img" aria-label="current costs" className="text-lg w-5 mr-2">📊</span>
+            <span>Current</span>
+          </h2>
           <Textarea
             placeholder="Notes"
             name="notes"
@@ -41,7 +41,7 @@ export default function CurrentCostsCard({ current, calculations, handleCurrentC
           />
         </div>
 
-        <div className="grid grid-cols-4 gap-2 items-end">
+        <div className="grid grid-cols-[1fr_1fr_repeat(2,_minmax(90px,_1fr))] gap-2 items-end">
           <div>
             <Label htmlFor="current-services" className="text-xs font-medium text-blue-600 mb-0.5 block">Services</Label>
             <Input

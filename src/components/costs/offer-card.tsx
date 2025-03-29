@@ -1,20 +1,18 @@
 "use client"
 
 import { useState, type ChangeEvent } from "react"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
+import { Input, Label, Card, Textarea } from "@/components/ui"
 import type { OfferState, OfferResult } from "@/types/calculator"
 
 interface OfferCardProps {
   index: number
   offer: OfferState
   calculations: OfferResult
+  isBestOffer?: boolean
   handleOfferChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-export default function OfferCard({ index, offer, calculations, handleOfferChange }: OfferCardProps) {
+export default function OfferCard({ index, offer, calculations, isBestOffer, handleOfferChange }: OfferCardProps) {
   const [focusedInput, setFocusedInput] = useState<string | null>(null)
 
   const formatValue = (value: number, inputId: string) => {
@@ -28,10 +26,17 @@ export default function OfferCard({ index, offer, calculations, handleOfferChang
   }
 
   return (
-    <Card className="p-2 bg-white rounded-lg border border-gray-200">
+    <Card className={`p-2 bg-white rounded-lg border transition-all duration-200 hover:shadow-md ${
+      isBestOffer ? 'border-green-500 bg-green-50/50 ring-1 ring-green-500/20' : 'border-gray-200'
+    }`}>
       <div className="space-y-1.5">
-        <div className="grid grid-cols-[80px_1fr] gap-2 items-start">
-          <h2 className="text-base font-semibold text-blue-500 pt-1">Offer {index + 1}</h2>
+        <div className="grid grid-cols-[80px_1fr] gap-4 items-start">
+          <h2 className={`text-base font-semibold pt-1 flex items-center ${
+            isBestOffer ? 'text-green-600' : 'text-blue-500'
+          }`}>
+            <span role="img" aria-label="offer" className="text-lg w-5 mr-2">💡</span>
+            <span className="min-w-[60px]">Offer {index + 1}</span>
+          </h2>
           <Textarea 
             placeholder="Notes" 
             name="notes" 

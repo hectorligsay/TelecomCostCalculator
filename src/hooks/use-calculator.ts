@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect, type ChangeEvent } from "react"
-import type { CurrentState, OfferState, CalculationsState } from "@/types/calculator"
+import { useState, type ChangeEvent } from "react"
+import type { CurrentState, OfferState } from "@/types/calculator"
 
 export function useCalculator() {
   const [current, setCurrent] = useState<CurrentState>({
@@ -16,75 +16,71 @@ export function useCalculator() {
     { services: 0, mobile: 0, notes: "" },
   ])
 
-  const [calculations, setCalculations] = useState<CalculationsState>({
-    currentHouseholdCost: 0,
-    threshold: 0,
-    offerResults: [
-      { householdCost: 0, monthlySavings: 0, annualSavings: 0 },
-      { householdCost: 0, monthlySavings: 0, annualSavings: 0 },
-      { householdCost: 0, monthlySavings: 0, annualSavings: 0 },
-    ],
-  })
+  const handleCurrentChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    if (name === "notes") {
+      setCurrent((prev) => ({ ...prev, [name]: value }))
+    } else {
+      setCurrent((prev) => ({ ...prev, [name]: parseFloat(value) || 0 }))
+    }
+  }
 
-  // Calculate all values whenever inputs change
-  useEffect(() => {
-    const currentHouseholdCost = current.services + current.mobile
-    const threshold = current.services * 0.8
-
-    const offerResults = offers.map((offer) => {
-      const householdCost = offer.services + offer.mobile
-      const monthlySavings = currentHouseholdCost - householdCost
-      const annualSavings = monthlySavings * 12
-
-      return { householdCost, monthlySavings, annualSavings }
+  const handleOfferChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
+    const { name, value } = e.target
+    setOffers((prev) => {
+      const newOffers = [...prev]
+      if (name === "notes") {
+        newOffers[index] = { ...newOffers[index], [name]: value }
+      } else {
+        newOffers[index] = { ...newOffers[index], [name]: parseFloat(value) || 0 }
+      }
+      return newOffers
     })
-
-    setCalculations({ currentHouseholdCost, threshold, offerResults })
-  }, [current, offers])
-
-  // Handle changes to current costs
-  const handleCurrentChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target
-
-    if (name === "notes") {
-      setCurrent((prev) => ({ ...prev, notes: value }))
-    } else {
-      // For numeric inputs, handle empty string case
-      const numericValue = value === "" ? 0 : Number.parseFloat(value)
-      setCurrent((prev) => ({ ...prev, [name]: numericValue }))
-    }
   }
 
-  // Handle changes to offer costs
-  const handleOfferChange = (index: number, e: ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target
-
-    if (name === "notes") {
-      setOffers((prev) => prev.map((offer, i) => (i === index ? { ...offer, notes: value } : offer)))
-    } else {
-      // For numeric inputs, handle empty string case
-      const numericValue = value === "" ? 0 : Number.parseFloat(value)
-      setOffers((prev) => prev.map((offer, i) => (i === index ? { ...offer, [name]: numericValue } : offer)))
-    }
+  const addOffer = () => {
+    setOffers((prev) => [...prev, { services: 0, mobile: 0, notes: "" }])
   }
 
-  // Add a new offer
-  const addOffer = (): void => {
-    setOffers([...offers, { services: 0, mobile: 0, notes: "" }])
-    setCalculations((prev) => ({
-      ...prev,
-      offerResults: [...prev.offerResults, { householdCost: 0, monthlySavings: 0, annualSavings: 0 }],
-    }))
-  }
-
-  // Delete last offer
-  const deleteLastOffer = (): void => {
+  const deleteLastOffer = () => {
     if (offers.length <= 3) return // Prevent deleting if only 3 offers remain
     setOffers((prev) => prev.slice(0, -1))
-    setCalculations((prev) => ({
-      ...prev,
-      offerResults: prev.offerResults.slice(0, -1),
-    }))
+  }
+
+  const resetCalculator = () => {
+    // Reset current costs
+    setCurrent({
+      services: 0,
+      mobile: 0,
+      notes: "",
+    })
+    
+    // Reset offers to initial state with three empty offers
+    setOffers([
+      { services: 0, mobile: 0, notes: "" },
+      { services: 0, mobile: 0, notes: "" },
+      { services: 0, mobile: 0, notes: "" },
+    ])
+  }
+
+  // Calculate threshold (20% of current costs)
+  const threshold = (current.services + current.mobile) * 0.2
+
+  // Calculate current household cost
+  const currentHouseholdCost = current.services + current.mobile
+
+  // Calculate results for each offer
+  const offerResults = offers.map(offer => {
+    const householdCost = offer.services + offer.mobile
+    const monthlySavings = currentHouseholdCost - householdCost
+    const annualSavings = monthlySavings * 12
+    return { householdCost, monthlySavings, annualSavings }
+  })
+
+  const calculations = {
+    threshold,
+    currentHouseholdCost,
+    offerResults,
   }
 
   return {
@@ -95,6 +91,7 @@ export function useCalculator() {
     handleOfferChange,
     addOffer,
     deleteLastOffer,
+    resetCalculator,
   }
 }
 
