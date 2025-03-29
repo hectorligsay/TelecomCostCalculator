@@ -1,8 +1,12 @@
 "use client"
 
 import { useState, type ChangeEvent } from "react"
-import { Input, Label, Card, Textarea } from "@/components/ui"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
 import type { OfferState, OfferResult } from "@/types/calculator"
+import { LightbulbIcon } from "@/components/icons/LightbulbIcon"
 
 interface OfferCardProps {
   index: number
@@ -30,13 +34,11 @@ export default function OfferCard({ index, offer, calculations, isBestOffer, han
       isBestOffer ? 'border-green-500 bg-green-50/50 ring-1 ring-green-500/20' : 'border-gray-200'
     }`}>
       <div className="space-y-1.5">
-        <div className="grid grid-cols-[80px_1fr] gap-4 items-start">
-          <h2 className={`text-base font-semibold pt-1 flex items-center ${
-            isBestOffer ? 'text-green-600' : 'text-blue-500'
-          }`}>
-            <span role="img" aria-label="offer" className="text-lg w-5 mr-2">💡</span>
-            <span className="min-w-[60px]">Offer {index + 1}</span>
-          </h2>
+        <div className="grid grid-cols-[120px_1fr] gap-2">
+          <h3 className="font-medium flex items-center gap-2">
+            <LightbulbIcon className="w-4 h-4" />
+            Offer {index + 1}
+          </h3>
           <Textarea 
             placeholder="Notes" 
             name="notes" 
@@ -47,9 +49,9 @@ export default function OfferCard({ index, offer, calculations, isBestOffer, han
           />
         </div>
 
-        <div className="grid grid-cols-[1fr_1fr_repeat(3,_minmax(90px,_1fr))] gap-2 items-end">
+        <div className="grid grid-cols-5 gap-2">
           <div>
-            <Label htmlFor={`offer-${index}-services`} className="text-xs font-medium text-blue-500 mb-0.5 block">
+            <Label htmlFor={`offer-${index}-services`} className="text-sm text-blue-500 block">
               Services
             </Label>
             <Input
@@ -61,11 +63,11 @@ export default function OfferCard({ index, offer, calculations, isBestOffer, han
               onChange={handleOfferChange}
               onFocus={() => setFocusedInput(`offer-${index}-services`)}
               onBlur={() => setFocusedInput(null)}
-              className="w-full h-7 px-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+              className="w-full h-7 rounded-md border border-input bg-background px-3 py-1 text-sm"
             />
           </div>
           <div>
-            <Label htmlFor={`offer-${index}-mobile`} className="text-xs font-medium text-blue-500 mb-0.5 block">
+            <Label htmlFor={`offer-${index}-mobile`} className="text-sm text-blue-500 block">
               Mobile
             </Label>
             <Input
@@ -77,25 +79,25 @@ export default function OfferCard({ index, offer, calculations, isBestOffer, han
               onChange={handleOfferChange}
               onFocus={() => setFocusedInput(`offer-${index}-mobile`)}
               onBlur={() => setFocusedInput(null)}
-              className="w-full h-7 px-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+              className="w-full h-7 rounded-md border border-input bg-background px-3 py-1 text-sm"
             />
           </div>
           <div>
-            <Label className="text-xs font-medium text-gray-500 mb-0.5 block text-center">Cost</Label>
+            <Label className="text-sm text-gray-500 block">Cost</Label>
             <Input 
               value={(offer.services > 0 || offer.mobile > 0) ? calculations?.householdCost.toFixed(2) : "0.00"} 
               readOnly 
               tabIndex={-1}
-              className="w-full h-7 px-2 bg-gray-50 border border-gray-200 rounded-md text-gray-500 text-sm text-center" 
+              className="w-full h-7 rounded-md border border-input bg-background px-3 py-1 text-sm text-center" 
             />
           </div>
           <div>
-            <Label className="text-xs font-medium text-gray-500 mb-0.5 block text-center">Monthly</Label>
+            <Label className="text-sm text-gray-500 block">Monthly</Label>
             <Input
               value={(offer.services > 0 || offer.mobile > 0) ? calculations?.monthlySavings.toFixed(2) : "0.00"}
               readOnly
               tabIndex={-1}
-              className={`w-full h-7 px-2 bg-gray-50 border border-gray-200 rounded-md text-sm font-medium text-center ${
+              className={`w-full h-7 rounded-md border border-input bg-background px-3 py-1 text-sm text-center ${
                 (offer.services > 0 || offer.mobile > 0) 
                   ? calculations?.monthlySavings > 0 
                     ? 'text-green-600' 
@@ -107,12 +109,12 @@ export default function OfferCard({ index, offer, calculations, isBestOffer, han
             />
           </div>
           <div>
-            <Label className="text-xs font-medium text-gray-500 mb-0.5 block text-center">Annual</Label>
+            <Label className="text-sm text-gray-500 block">Annual</Label>
             <Input
               value={(offer.services > 0 || offer.mobile > 0) ? calculations?.annualSavings.toFixed(2) : "0.00"}
               readOnly
               tabIndex={-1}
-              className={`w-full h-7 px-2 bg-gray-50 border border-gray-200 rounded-md text-sm font-medium text-center ${
+              className={`w-full h-7 rounded-md border border-input bg-background px-3 py-1 text-sm text-center ${
                 (offer.services > 0 || offer.mobile > 0)
                   ? calculations?.annualSavings > 0
                     ? 'text-green-600'
