@@ -90,6 +90,9 @@ export default function HomePage() {
           Delete Last Offer
         </Button>
       </div>
+      <div className="text-right text-gray-400 text-sm mt-2">
+        Precision Solutions HL™
+      </div>
     </main>
   )
 }
