@@ -4,12 +4,13 @@ import { useState, type ChangeEvent } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
 import type { CurrentState, CalculationsState } from "@/types/calculator"
 
 interface CurrentCostsCardProps {
   current: CurrentState
   calculations: CalculationsState
-  handleCurrentChange: (e: ChangeEvent<HTMLInputElement>) => void
+  handleCurrentChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 export default function CurrentCostsCard({ current, calculations, handleCurrentChange }: CurrentCostsCardProps) {
@@ -26,24 +27,23 @@ export default function CurrentCostsCard({ current, calculations, handleCurrentC
   }
 
   return (
-    <Card className="p-6 bg-white rounded-lg border border-gray-200">
-      <div className="space-y-6">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-lg font-semibold text-blue-600">Current Costs</h2>
-          <Input
+    <Card className="p-2 bg-white rounded-lg border border-gray-200">
+      <div className="space-y-1.5">
+        <div className="grid grid-cols-[120px_1fr] gap-2 items-start">
+          <h2 className="text-base font-semibold text-blue-600 pt-1">Current Costs</h2>
+          <Textarea
             placeholder="Notes"
             name="notes"
             value={current.notes}
             onChange={handleCurrentChange}
-            className="w-full px-3 py-1.5 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            rows={2}
+            className="w-full min-h-[20px] px-2 py-1 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm resize-none"
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-          <div className="space-y-1.5">
-            <Label htmlFor="current-services" className="text-sm font-medium text-blue-600">
-              Current Services
-            </Label>
+        <div className="grid grid-cols-4 gap-2 items-end">
+          <div>
+            <Label htmlFor="current-services" className="text-xs font-medium text-blue-600 mb-0.5 block">Services</Label>
             <Input
               id="current-services"
               name="services"
@@ -53,24 +53,11 @@ export default function CurrentCostsCard({ current, calculations, handleCurrentC
               onChange={handleCurrentChange}
               onFocus={() => setFocusedInput("current-services")}
               onBlur={() => setFocusedInput(null)}
-              className="w-full px-3 py-1.5 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full h-7 px-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             />
           </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="threshold" className="text-sm font-medium text-blue-600">
-              Threshold
-            </Label>
-            <Input 
-              id="threshold" 
-              value={calculations.threshold.toFixed(2)} 
-              readOnly 
-              className="w-full px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-500" 
-            />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="current-mobile" className="text-sm font-medium text-blue-600">
-              Current Mobile
-            </Label>
+          <div>
+            <Label htmlFor="current-mobile" className="text-xs font-medium text-blue-600 mb-0.5 block">Mobile</Label>
             <Input
               id="current-mobile"
               name="mobile"
@@ -80,18 +67,27 @@ export default function CurrentCostsCard({ current, calculations, handleCurrentC
               onChange={handleCurrentChange}
               onFocus={() => setFocusedInput("current-mobile")}
               onBlur={() => setFocusedInput(null)}
-              className="w-full px-3 py-1.5 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full h-7 px-2 bg-white border border-gray-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             />
           </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="current-household-cost" className="text-sm font-medium text-blue-600">
-              Current Household Cost
-            </Label>
+          <div>
+            <Label htmlFor="threshold" className="text-xs font-medium text-blue-600 mb-0.5 block text-center">Threshold</Label>
+            <Input 
+              id="threshold" 
+              value={calculations.threshold.toFixed(2)} 
+              readOnly 
+              tabIndex={-1}
+              className="w-full h-7 px-2 bg-gray-50 border border-gray-200 rounded-md text-gray-500 text-sm text-center" 
+            />
+          </div>
+          <div>
+            <Label htmlFor="current-household-cost" className="text-xs font-medium text-blue-600 mb-0.5 block text-center">Cost</Label>
             <Input
               id="current-household-cost"
               value={calculations.currentHouseholdCost.toFixed(2)}
               readOnly
-              className="w-full px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-500"
+              tabIndex={-1}
+              className="w-full h-7 px-2 bg-gray-50 border border-gray-200 rounded-md text-gray-500 text-sm text-center"
             />
           </div>
         </div>
