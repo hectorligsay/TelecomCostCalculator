@@ -29,18 +29,17 @@ export default function HomePage() {
           <div className="grid grid-cols-2 gap-4">
             <Button
               onClick={addOffer}
-              className="h-12 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg flex items-center justify-center gap-2 transition-colors"
+              className="w-full bg-green-600 hover:bg-green-700"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="mr-2 h-4 w-4" />
               Add Another Offer
             </Button>
-            
             <Button
               onClick={deleteLastOffer}
-              className="h-12 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg flex items-center justify-center gap-2 transition-colors"
-              disabled={offers.length <= 2}
+              className="w-full bg-red-600 hover:bg-red-700"
+              disabled={offers.length <= 3}
             >
-              <Minus className="w-5 h-5" />
+              <Minus className="mr-2 h-4 w-4" />
               Delete Last Offer
             </Button>
           </div>
