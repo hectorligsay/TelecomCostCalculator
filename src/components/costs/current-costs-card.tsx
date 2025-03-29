@@ -1,7 +1,10 @@
 "use client"
 
 import { useState, type ChangeEvent } from "react"
-import { Input, Label, Card, Textarea } from "@/components/ui"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
 import type { CurrentState, CalculationsState } from "@/types/calculator"
 
 interface CurrentCostsCardProps {
