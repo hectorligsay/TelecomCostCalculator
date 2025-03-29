@@ -16,7 +16,10 @@ export default function CurrentCostsCard({ current, calculations, handleCurrentC
   const [focusedInput, setFocusedInput] = useState<string | null>(null)
 
   const formatValue = (value: number, inputId: string) => {
-    if (value === 0 && focusedInput !== inputId) {
+    if (focusedInput === inputId) {
+      return value === 0 ? "" : value.toString()
+    }
+    if (value === 0) {
       return "0.00"
     }
     return value.toString()
