@@ -63,8 +63,8 @@ export function useCalculator() {
     ])
   }
 
-  // Calculate threshold (20% of current costs)
-  const threshold = (current.services + current.mobile) * 0.2
+  // Calculate threshold (80% of services only)
+  const threshold = current.services * 0.8
 
   // Calculate current household cost
   const currentHouseholdCost = current.services + current.mobile
