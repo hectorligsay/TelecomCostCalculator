@@ -79,7 +79,7 @@ export default function OfferCard({ index, offer, calculations, handleOfferChang
           <div className="space-y-1.5">
             <Label className="text-sm font-medium text-blue-500">Household Cost</Label>
             <Input 
-              value={calculations?.householdCost.toFixed(2) || "0.00"} 
+              value={(offer.services > 0 || offer.mobile > 0) ? calculations?.householdCost.toFixed(2) : "0.00"} 
               readOnly 
               className="w-full px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-500" 
             />
@@ -87,20 +87,32 @@ export default function OfferCard({ index, offer, calculations, handleOfferChang
           <div className="space-y-1.5">
             <Label className="text-sm font-medium text-blue-500">Monthly Savings</Label>
             <Input
-              value={calculations?.monthlySavings.toFixed(2) || "0.00"}
+              value={(offer.services > 0 || offer.mobile > 0) ? calculations?.monthlySavings.toFixed(2) : "0.00"}
               readOnly
               className={`w-full px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md font-medium ${
-                calculations?.monthlySavings > 0 ? 'text-green-600' : 'text-gray-500'
+                (offer.services > 0 || offer.mobile > 0) 
+                  ? calculations?.monthlySavings > 0 
+                    ? 'text-green-600' 
+                    : calculations?.monthlySavings < 0 
+                      ? 'text-red-600'
+                      : 'text-gray-500'
+                  : 'text-gray-500'
               }`}
             />
           </div>
           <div className="space-y-1.5">
             <Label className="text-sm font-medium text-blue-500">Annual Savings</Label>
             <Input
-              value={calculations?.annualSavings.toFixed(2) || "0.00"}
+              value={(offer.services > 0 || offer.mobile > 0) ? calculations?.annualSavings.toFixed(2) : "0.00"}
               readOnly
               className={`w-full px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-md font-medium ${
-                calculations?.annualSavings > 0 ? 'text-green-600' : 'text-gray-500'
+                (offer.services > 0 || offer.mobile > 0)
+                  ? calculations?.annualSavings > 0
+                    ? 'text-green-600'
+                    : calculations?.annualSavings < 0
+                      ? 'text-red-600'
+                      : 'text-gray-500'
+                  : 'text-gray-500'
               }`}
             />
           </div>
