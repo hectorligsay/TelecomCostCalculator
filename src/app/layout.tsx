@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/react"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Spectrum Cost Calculator",
+  title: "Telecom Cost Calculator",
   description: "Calculate customer household costs and savings",
 }
 

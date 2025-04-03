@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Telecom Cost Calculator
 
-## Getting Started
+A modern web application designed to help calculate and compare telecom service costs and potential savings. Built with Next.js and React, featuring a clean, user-friendly interface and real-time calculations.
 
-First, run the development server:
+![Calculator Preview](public/preview.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Current Cost Analysis**: Input and track current service and mobile costs
+- **Multiple Offer Comparison**: Compare up to multiple different service offers simultaneously
+- **Real-time Calculations**: 
+  - Monthly and annual savings calculations
+  - Automatic threshold calculations (80% of current services)
+  - Total household cost analysis
+- **Smart Offer Management**:
+  - Add/remove offer comparisons dynamically
+  - Best offer highlighting
+  - Detailed notes for each offer
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Analytics Integration**: Track usage patterns and user interactions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework**: Next.js 14
+- **UI**: React with Tailwind CSS
+- **Analytics**: Vercel Analytics
+- **Styling**: Tailwind CSS with custom components
+- **Deployment**: Vercel
 
-## Learn More
+## 📦 Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/telecomcostcalculator.git
+   cd telecomcostcalculator
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-## Deploy on Vercel
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💻 Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Enter Current Costs**:
+   - Input your current services cost
+   - Add current mobile costs (if applicable)
+   - Add any relevant notes
+
+2. **Compare Offers**:
+   - Enter service costs for each offer
+   - Add mobile costs if included
+   - Add notes for offer details
+   - The best offer will be automatically highlighted
+
+3. **Analyze Results**:
+   - View monthly and annual savings for each offer
+   - Compare total household costs
+   - Use the threshold value as a negotiation target
+
+4. **Manage Offers**:
+   - Add more offers as needed
+   - Remove unnecessary offers
+   - Reset calculator for new comparisons
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/yourusername/telecomcostcalculator/issues).
+
+## 📝 License
+
+This project is [MIT](LICENSE) licensed.
+
+## 👥 Contact
+
+For questions or feedback, please reach out through GitHub issues.
